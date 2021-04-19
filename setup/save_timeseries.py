@@ -73,7 +73,8 @@ def main():
     data_dr = '/home/sage/fmri_fusion/data/'
     base_glob1 = data_dr + 'derivatives/abcd-hcp-pipeline/sub-*/*/func/'
     base_glob = base_glob1 + 'sub-*_ses-baselineYear1Arm1_task-TASK_*.dtseries.nii'
-
+    
+    # Where to save data
     save_dr = '../data/timeseries/'
     
     # The different tasks
@@ -94,6 +95,7 @@ def main():
         mapper = SurfMaps(maps=parc, strategy='auto', vectorize=False)
     
     # Proc. each task
+    random.shuffle(tasks)
     for task in tasks:
         glob_path = base_glob.replace('TASK', task)
         save_modality(glob_path, mapper, os.path.join(save_dr, task.lower()))
