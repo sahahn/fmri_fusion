@@ -52,8 +52,10 @@ def save_modality(glob_path, mapper, save_dr):
         proc_file(file, mapper, save_dr)
 
 def get_parcel_loc(parcel_name):
+    '''If parcel doesn't already exist, will try to download it.'''
 
     parcel_dr = '../parcels/'
+    os.makedirs(parcel_dr, exist_ok=True)
 
     existing_parcels = os.listdir(parcel_dr)
     if parcel_name + '.npy' not in existing_parcels:
@@ -70,7 +72,8 @@ def main():
     parcel_loc = get_parcel_loc(parcel_name)
     
     # Define globbing path
-    data_dr = '/home/sage/fmri_fusion/data/'
+    data_dr = '/users/s/a/sahahn/dcan/nda-abcd-s3-downloader/output/'
+
     base_glob1 = data_dr + 'derivatives/abcd-hcp-pipeline/sub-*/*/func/'
     base_glob = base_glob1 + 'sub-*_ses-baselineYear1Arm1_task-TASK_*.dtseries.nii'
     
