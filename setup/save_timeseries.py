@@ -36,6 +36,7 @@ def proc_file(file, mapper, save_dr):
     
     # Save
     np.save(save_loc, data)
+    print(f'saved {save_loc}', flush=True)
 
 
 def save_modality(glob_path, mapper, save_dr):
@@ -79,6 +80,7 @@ def main():
     
     # Where to save data
     save_dr = '../data/timeseries/'
+    save_dr = os.path.join(save_dr, parcel_name)
     
     # The different tasks
     tasks = ['MID', 'nback', 'rest', 'SST']
@@ -102,6 +104,9 @@ def main():
     for task in tasks:
         glob_path = base_glob.replace('TASK', task)
         save_modality(glob_path, mapper, os.path.join(save_dr, task.lower()))
+
+    print('DONE!', flush=True)
+
 
 if __name__ == '__main__':
     main()
